@@ -1,0 +1,32 @@
+overwrite: true
+generates:
+  ./apps/users/src/libs/types/generated/base-types.ts:
+    schema: ./apps/users/src/modules/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      useIndexSignature: true
+      federation: true
+      wrapFieldDefinitions: true
+      contextType: ../index#UsersContext
+      scalars:
+        DateTime: Date
+        EmailAddress: string
+      mappers:
+        Account: ../../../modules/account/account.model#IAccountDocument
+  ./apps/posts/src/libs/types/generated/base-types.ts:
+    schema: ./apps/posts/src/modules/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      useIndexSignature: true
+      federation: true
+      wrapFieldDefinitions: true
+      contextType: ../index#PostsContext
+      scalars:
+        DateTime: Date
+        EmailAddress: string
+      mappers:
+        Feed: ../../../modules/feed/feed.model#IFeedDocument

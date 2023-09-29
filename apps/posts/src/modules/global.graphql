@@ -1,0 +1,15 @@
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.0"
+    import: ["@key", "@shareable", "@external"]
+  )
+
+directive @isMHAdmin on OBJECT | FIELD_DEFINITION | INTERFACE | UNION
+
+scalar JSON
+scalar DateTime
+scalar EmailAddress
+
+extend type Account @key(fields: "_id") {
+  _id: ID @external
+}

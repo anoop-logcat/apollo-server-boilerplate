@@ -1,0 +1,46 @@
+type Account @key(fields: "_id") {
+  _id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  firstName: String
+  lastName: String
+  email: EmailAddress
+  hobbies: [String]
+}
+
+input CreateAccountInput {
+  firstName: String!
+  lastName: String!
+  email: EmailAddress!
+  hobbies: [String]
+}
+
+input UpdateAccountInput {
+  _id: ID!
+  firstName: String
+  lastName: String
+  email: EmailAddress
+  hobbies: [String]
+}
+
+extend type Query {
+  getAccountById(_id: ID!): Account @isMHAdmin
+  getAllAccount(
+    search: String
+    filter: JSON
+    sort: JSON
+    limit: Int
+    offset: Int
+  ): [Account]! @isMHAdmin
+  getOneAccount(filter: JSON, sort: JSON): Account @isMHAdmin
+  getAllAccountCount(search: String, filter: JSON): Int! @isMHAdmin
+}
+
+extend type Mutation {
+  createAccount(data: CreateAccountInput!): Account! @isMHAdmin
+  createManyAccount(datas: [CreateAccountInput!]!): [Account!]! @isMHAdmin
+  updateAccount(data: UpdateAccountInput!): Account! @isMHAdmin
+  updateManyAccount(datas: [UpdateAccountInput!]!): [Account!]! @isMHAdmin
+  deleteAccount(_id: ID!): Account! @isMHAdmin
+  deleteManyAccount(filter: JSON!): [Account!]! @isMHAdmin
+}

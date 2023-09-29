@@ -1,0 +1,14 @@
+{
+  "name": "codegen-sdk",
+  "version": "1.0.0",
+  "description": "A node based library for my microservices",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "rimraf dist && node ./esbuild.config.js && tsc --emitDeclarationOnly --outDir dist"
+  },
+  "dependencies": {
+    "graphql-request": "^6.1.0"
+  }
+}

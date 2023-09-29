@@ -1,0 +1,12 @@
+overwrite: true
+generates:
+  # For generating typescript operations from graphql
+  ./libs/codegen-sdk/src/app-main/generated/sdk.ts:
+    documents: "./libs/codegen-sdk/src/app-main/graphql/**/*.graphql"
+    schema: "http://localhost:3000/app-main"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+    config:
+      documentMode: documentNode

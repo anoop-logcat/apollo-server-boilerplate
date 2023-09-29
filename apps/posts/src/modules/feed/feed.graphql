@@ -1,0 +1,47 @@
+type Feed @key(fields: "_id") {
+  _id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  description: String
+  imageUrl: String
+  createdById: ID
+  createdBy: Account
+}
+
+input CreateFeedInput {
+  title: String!
+  description: String
+  imageUrl: String!
+  createdById: ID!
+}
+
+input UpdateFeedInput {
+  _id: ID!
+  title: String
+  description: String
+  imageUrl: String
+  createdById: ID
+}
+
+extend type Query {
+  getFeedById(_id: ID!): Feed @isMHAdmin
+  getAllFeed(
+    search: String
+    filter: JSON
+    sort: JSON
+    limit: Int
+    offset: Int
+  ): [Feed]! @isMHAdmin
+  getOneFeed(filter: JSON, sort: JSON): Feed @isMHAdmin
+  getAllFeedCount(search: String, filter: JSON): Int! @isMHAdmin
+}
+
+extend type Mutation {
+  createFeed(data: CreateFeedInput!): Feed! @isMHAdmin
+  createManyFeed(datas: [CreateFeedInput!]!): [Feed!]! @isMHAdmin
+  updateFeed(data: UpdateFeedInput!): Feed! @isMHAdmin
+  updateManyFeed(datas: [UpdateFeedInput!]!): [Feed!]! @isMHAdmin
+  deleteFeed(_id: ID!): Feed! @isMHAdmin
+  deleteManyFeed(filter: JSON!): [Feed!]! @isMHAdmin
+}
